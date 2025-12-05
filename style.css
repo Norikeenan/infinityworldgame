@@ -1,9 +1,64 @@
 /* Configurações Gerais do Site */
-* {
-    background-color: black;
-    color: green;
+*{
     margin: 0;
-    padding: 0;
-    text-decoration: none;
+}
+body{
+    /*Plano de Fundo*/
+   background: radial-gradient( ellipse at center, #2c044d 0%, /* Roxo escuro */ #130129 70%, /* Roxo muito escuro */ #000000 100% /* Preto na borda */);
+}
+h1 {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    color: #FFFFFF; 
+    font-family: Arial, sans-serif; 
+    text-align: center; 
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
+.container {  
+    height: 100vh;  
+    overflow: hidden;  
+    position: relative;
+    pointer-events: none;
+    
+
+}
+
+.estrelas {  
+    position: absolute;  
+    top: 0; left: 0;  width: 3px;  
+    height: 3px;  border-radius: 50%;  
+    box-shadow:     15px 15px #fff,    125px 35px #fff,    50px 80px #fff;
+}
+ 
+.Start {
+    color: #FFFFFF;
+    background-color: #000000;
+    justify-content: center;
+    display: flex;
+    top: 53%;
+    left: 46%;
+    position: fixed;
+    padding: 10px 35px; 
+    font-size: 25px;
+    /*borda do botão*/
+    border-radius: 10%;
+    border-color: #2c044d;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+
+.conta-existente {
+    top: 60%;
+    left: 47%;
+    color: #FFFFFF;
+    position: fixed;
+    font-size: 20px;
+    text-decoration: overline;
+
+}
