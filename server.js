@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+const express = require('express');
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -31,7 +34,7 @@ app.post('/api/jogador', (req, res) => {
     const { nickname } = req.body;
 
     if (!nickname) {
-        return res.status(400).send({ mensagem: 'O nickname é obrigatório, guerreiro!' });
+        return res.status(400).send({ mensagem: 'O nickname é obrigatório, jogador!' });
     }
 
     const sql = "INSERT INTO usuarios (nome) VALUES (?)";
