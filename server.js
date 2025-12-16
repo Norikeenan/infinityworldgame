@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'novo-user', 'index.html'));
  });
   //Salvar no Banco
- app.post('/registrar', (req, res) => {
+ app.post('/', (req, res) => {
     const { nickname } = req.body;
 
     //não aceita nome vazio
