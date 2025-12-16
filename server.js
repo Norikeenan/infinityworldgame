@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 
 // Rota de Cadastro de Jogador
 //Entrega do HTML
- app.get('/', (req, res) => {
+ app.get('/registro', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'novo-user', 'index.html'));
  });
   //Salvar no Banco
