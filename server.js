@@ -30,28 +30,31 @@ db.connect((err) => {
 // --- ROTAS (O Cérebro) ---
 
 // Rota de Cadastro de Jogador
-app.post('/api/jogador', (req, res) => {
+//Entrega do HTML
+ app.get('/registro', (req, res) => {
+    res.sendFile(pach.join(__dirname, 'public', 'novo-user', 'index.html'));
+ });
+  //Salvar no Banco
+ app.post('/registrar', (req, res) => {
     const { nickname } = req.body;
 
+    //não aceita nome vazio
     if (!nickname) {
-        return res.status(400).send({ mensagem: 'O nickname é obrigatório, jogador!' });
+        return res.status(400).json({ sucesso: false, mensagem: "Nome inválido" });
     }
+    const sql = 'INSERT INTO usuarios (nickname) VALUES (?)';
 
-    const sql = "INSERT INTO usuarios (nome) VALUES (?)";
-
-    db.query(sql, [nickname], (err, result) => {
+    connection.query(sql, [nickname], (err, result) => {
         if (err) {
+            //nome duplicado
             console.error(err);
-            res.status(500).send({ mensagem: 'Erro ao criar personagem.' });
+            res.status(500).json({ sucesso: false, mensagem: "Erro so salvar ou nome já existe! "});
         } else {
-            res.status(201).send({ 
-                mensagem: 'Personagem criado!', 
-                id: result.insertId,
-                nome: nickname
-            });
+            //Personagem Criado!
+            res.json({ sucesso: true, mensagem: "Registrado!"});
         }
     });
-});
+ });
 // Define a porta (3000 é o padrãozão do Node)
 const PORT = 3000;
 
