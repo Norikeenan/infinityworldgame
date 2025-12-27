@@ -3,7 +3,7 @@ let nicknameGuardado = "";
 
 //Verificando se o nome existe ao clicar no botão. 
 async function irParaSenha() {
-    const inputName = document.getElementById('nickname');
+    const inputNome = document.getElementById('nickname');
     const valorNome = inputNome.value.trim();
     const botao = document.querySelector('#fase-nome button');
 
