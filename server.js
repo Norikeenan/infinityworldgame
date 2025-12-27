@@ -43,48 +43,47 @@ app.get('/', (req, res) => {
 
 // Rota de Cadastro de Jogador
 //Entrega do HTML
- app.get('/registro', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'novo-user', 'index.html'));
- });
-  //Salvar no Banco
- app.post('/registrar', (req, res) => {
-    const nickname  = req.body.nickname;
+ app.post('/verificar-nome', (req, res) => {
+    const nickname = req.body.nickname;
 
     const sql = "SELECT * FROM usuarios WHERE nickname = ?";
-
+    
     db.query(sql, [nickname], (err, result) => {
         if (err) {
             console.error("Erro no banco:", err);
             return res.status(500).json({ erro: "Erro interno" });
         }
 
+        // Se a lista vier com alguém, o nome já existe
         if (result.length > 0) {
             res.json({ disponivel: false });
         } else {
             res.json({ disponivel: true });
         }
-    })
- });
- app.post('/registro', (req, res) => {
-    const { nickname, password } = req.body;
+    });
+});
+
+// 2. ROTA ATUALIZADA: Cria a conta com Senha (usada pelo botão "Entrar")
+app.post('/registro', (req, res) => {
+    const { nickname, password } = req.body; // Pega nome E senha
 
     if (!nickname || !password) {
         return res.status(400).json({ mensagem: "Faltou nome ou senha!" });
     }
 
+    // Agora o INSERT guarda os dois valores
     const sql = "INSERT INTO usuarios (nickname, password) VALUES (?, ?)";
 
     db.query(sql, [nickname, password], (err, result) => {
         if (err) {
-            console.error("Erro ao salvar:" ,  err);
-            return res.status(500).json({ mensagem: "Erro ao criar conta. "});
+            console.error("Erro ao salvar:", err);
+            return res.status(500).json({ mensagem: "Erro ao criar conta." });
         }
-
-        console.log ('Novo jogador registrado: ${nickname}');
+        
+        console.log(`Novo jogador registrado: ${nickname}`);
         res.json({ sucesso: true });
-     });
-
- });
+    });
+});
 // Define a porta (3000 é o padrãozão do Node)
 const PORT = 3000;
 
