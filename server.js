@@ -48,24 +48,42 @@ app.get('/', (req, res) => {
  });
   //Salvar no Banco
  app.post('/registrar', (req, res) => {
-    const { nickname } = req.body;
+    const nickname  = req.body.nickname;
 
-    //não aceita nome vazio
-    if (!nickname) {
-        return res.status(400).json({ sucesso: false, mensagem: "Nome inválido" });
-    }
-    const sql = 'INSERT INTO usuarios (nickname) VALUES (?)';
+    const sql = "SELECT * FROM usuarios WHERE nickname = ?";
 
-    connection.query(sql, [nickname], (err, result) => {
+    db.query(sql, [nickname], (err, result) => {
         if (err) {
-            //nome duplicado
-            console.error(err);
-            res.status(500).json({ sucesso: false, mensagem: "Erro so salvar ou nome já existe! "});
-        } else {
-            //Personagem Criado!
-            res.json({ sucesso: true, mensagem: "Registrado!"});
+            console.error("Erro no banco:", err);
+            return res.status(500).json({ erro: "Erro interno" });
         }
-    });
+
+        if (result.length > 0) {
+            res.json({ disponivel: false });
+        } else {
+            res.json({ disponivel: true });
+        }
+    })
+ });
+ app.post('/registro', (req, res) => {
+    const { nickname, password } = req.body;
+
+    if (!nickname || !password) {
+        return res.status(400).json({ mensagem: "Faltou nome ou senha!" });
+    }
+
+    const sql = "INSERT INTO usuarios (nickname, password) VALUES (?, ?)";
+
+    db.query(sql, [nickname, password], (err, result) => {
+        if (err) {
+            console.error("Erro ao salvar:" ,  err);
+            return res.status(500).json({ mensagem: "Erro ao criar conta. "});
+        }
+
+        console.log ('Novo jogador registrado: ${nickname}');
+        res.json({ sucesso: true });
+     });
+
  });
 // Define a porta (3000 é o padrãozão do Node)
 const PORT = 3000;

@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/novo-user/style.css"" />
+    <link rel="stylesheet" type="text/css" href="/novo-user/style.css" />
     <title>IWG - Registro</title>
 </head>
 <body>
-    <form>
+    <div>
     <div class="insira-nome">
         <label for="nickname">
             <h1>Escolha seu nome de jogador:</h1>
@@ -15,7 +15,18 @@
         <input type="text" id="nickname" placeholder="Ninlen" autocomplete="off" maxlength="15" required>
         <button onclick="enviarRegistro(event)" class="botao">Próximo</button>
     </div>
-    </form>
+
+    <div id="fase-senha" class="insira-nome" style="display: none;">
+        <label for="senha">
+            <h1>Crie uma senha secreta</h1>
+        </label>
+        <input type="password" id="senha" placeholder="********">
+
+        <a onclick="voltarParaNome()" style="cursor: pointer; color: gray; margin-bottom: 10px; font-family: 'VT323';">Voltar</a>
+
+        <button onclick="finalizarRegistro()" class="botao">Entrar no Jogo</button>
+    </div>
+    </div>
     <script src="/novo-user/script.js"></script>
 </body>
 </html>
