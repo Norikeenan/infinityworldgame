@@ -33,8 +33,8 @@ connection.connect((err) => {
 // --- ROTAS (O Cérebro) ---
 
 // Rota principal (opcional, já que o static faz isso, mas bom garantir)
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/registro', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'novo-user', 'index.html'));
 });
 
 // Rota 1: Verificar Nome
@@ -81,5 +81,5 @@ app.post('/registro', (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`🚀 SERVIDOR VERSÃO 2.0 RODANDO na porta ${PORT}`);
+    console.log(`🚀 Servidor rodando! Acesse: http://localhost:${PORT}`);
 });
