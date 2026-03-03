@@ -14,12 +14,14 @@ app.use(express.static('public'));
 
 // 👇 1. CONFIGURAÇÃO DO BANCO
 const connection = mysql.createConnection({
-    host: process.env.MYSQLHOST || 'localhost',
-    user: process.env.MYSQLUSER || 'root',
-    // 👇 ATENÇÃO: Coloque sua senha do MySQL Workbench aqui se não usar .env
-    password: process.env.MYSQLPASSWORD || '123456', 
-    database: process.env.MYSQLDATABASE || 'financas_pessoais', // Confirme se o nome do banco é esse mesmo!
-    port: process.env.MYSQLPORT || 3306
+    host: 'caboose.proxy.rlwy.net',
+    port: 19745,
+    user: 'root',
+    password: 'yrrqkfbynJUEUedlgLIIKOOQzVIKUApL',
+    database: 'railway',
+    ssl: {
+        rejectUnauthorized: false // Isso diz pro Node.js aceitar o certificado do Railway
+    }
 });
 
 connection.connect((err) => {
