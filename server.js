@@ -13,14 +13,17 @@ app.use(cors());
 app.use(express.static('public'));
 
 // 👇 1. CONFIGURAÇÃO DO BANCO
-const connection = mysql.createConnection({
-    host: 'caboose.proxy.rlwy.net',
-    port: 19745,
-    user: 'root',
-    password: 'yrrqkfbynJUEUedlgLIIKOOQzVIKUApL',
-    database: 'railway',
+const connection = mysql.createPool({
+    host: process.env.MYSQLHOST,
+    port: process.env.MYSQLPORT,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
     ssl: {
-        rejectUnauthorized: false // Isso diz pro Node.js aceitar o certificado do Railway
+        rejectUnauthorized: false
     }
 });
 
