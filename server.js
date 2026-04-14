@@ -27,11 +27,13 @@ const connection = mysql.createPool({
     }
 });
 
-connection.connect((err) => {
+// Testando a conexão do Pool
+connection.getConnection((err, conn) => {
     if (err) {
-        console.error('❌ Erro ao conectar no MySQL:', err);
+        console.error("Erro ao conectar no MySQL:", err);
     } else {
-        console.log('✅ Conectado ao MySQL com sucesso!');
+        console.log("✅ Conectado ao MySQL com sucesso (Modo Pool)!");
+        conn.release(); // Libera a conexão de volta para o gerente
     }
 });
 
