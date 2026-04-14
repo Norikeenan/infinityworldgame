@@ -53,7 +53,7 @@ app.post('/verificar-nome', (req, res) => {
     connection.query(sql, [nickname], (err, result) => {
         if (err) {
             console.error("Erro no banco:", err);
-            return res.status(500).json({ erro: "Erro interno" });
+            return res.status(500).json({ erro: "Culpa do banco: " + err.message });
         }
 
         if (result.length > 0) {
