@@ -18,29 +18,35 @@ async function irParaSenha() {
 
     //Pergunta ao servidor se o nome está livre
     try {
-        const response = await fetch('/verificar-nome', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({ nickname: valorNome})
-        });
+    const response = await fetch('/verificar-nome', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nickname: valorNome })
+    });
 
-        const data = await response.json();
+    // Se o servidor responder erro (400, 500, etc), vamos ler o que ele mandou
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error("❌ O servidor gritou isso:", errorText);
+        alert("Erro no servidor: " + errorText);
+        return;
+    }
 
-        if (data.disponivel) {
-            //sucesso: Guarda o nome e muda de tela
-            nicknameGuardado = valorNome;
-            document.getElementById('fase-nome').style.display = 'none';
-            document.getElementById('fase-senha').style.display = 'flex';
-            document.getElementById('senha').focus();
-        } else {
-            alert("Esse nome já tem dono! Tente outro.");
-            inputNome.focus();
-        }
+    const data = await response.json();
 
-    } catch (error) {
-        console.error(error);
-        alert("error ao conectar com a guilda.");
-    } finally {
+    if (data.disponivel) {
+        // sucesso: Guarda o nome e muda de tela
+        nicknameGuardado = valorNome;
+        document.getElementById('fase-nome').style.display = 'none';
+        // ... restante do seu código para mostrar a próxima fase
+    } else {
+        alert("Este nome já tem dono!");
+    }
+
+} catch (error) {
+    console.error("🚨 Erro de conexão ou no código JS:", error);
+}
+     finally {
         botao.innerText = "Próximo";
         botao.disabled = false;
     }
