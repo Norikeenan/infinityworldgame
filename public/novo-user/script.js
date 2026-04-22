@@ -35,10 +35,18 @@ async function irParaSenha() {
     const data = await response.json();
 
     if (data.disponivel) {
-        // sucesso: Guarda o nome e muda de tela
-        nicknameGuardado = valorNome;
-        document.getElementById('fase-nome').style.display = 'none';
-        // ... restante do seu código para mostrar a próxima fase
+       // 1. Guarda o nome para usar depois no registro final
+    nicknameGuardado = valorNome; 
+
+    // 2. Esconde a parte do Nome
+    document.getElementById('fase-nome').style.display = 'none';
+
+    // 3. Mostra a parte da Senha
+    // Dica: Use 'flex' se o seu CSS original for flexbox, ou 'block' se for simples
+    document.getElementById('fase-senha').style.display = 'flex'; 
+    
+    console.log("Nome aceito! Indo para a fase de senha.");
+    
     } else {
         alert("Este nome já tem dono!");
     }
@@ -63,6 +71,7 @@ function voltarParaNome() {
 async function finalizarRegistro() {
     const inputSenha = document.getElementById('senha');
     const valorSenha = inputSenha.value.trim();
+
 
     if (!valorSenha) {
         alert("Sua conta precisa de uma senha!");
